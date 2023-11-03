@@ -1,14 +1,14 @@
-const { Smarthome } = require('../models')
+const { Oven } = require('../models')
 
 module.exports = {
     //get all user
     async index(req, res) {
         try {
-            const smarthomes = await Smarthome.findAll()
-            res.send(smarthomes)
+            const ovens = await Oven.findAll()
+            res.send(ovens)
         } catch (err) {
             res.status(500).send({
-                error: 'the Smarthome information was incorrect'
+                error: 'the Oven information was incorrect'
             })
         }
     },
@@ -17,11 +17,11 @@ module.exports = {
     // create user
     async create(req, res) {
         try {
-            const smarthome = await Smarthome.create(req.body)
-            res.send(smarthome.toJSON())
+            const oven = await Oven.create(req.body)
+            res.send(oven.toJSON())
         } catch (err) {
             res.status(500).send({
-                error: 'Create Smarthome incorrect'
+                error: 'Create Oven incorrect'
             })
         }
     },
@@ -29,36 +29,37 @@ module.exports = {
     // edit user, suspend, active
     async put(req, res) {
         try {
-            await Smarthome.update(req.body, {
+            await Oven.update(req.body, {
                 where: {
-                    id: req.params.smarthomeId
+                    id: req.params.ovenId
                 }
             })
             res.send(req.body)
         } catch (err) {
             res.status(500).send({
-                error: 'Update Smarthome incorrect'
+                error: 'Update Oven incorrect'
             })
         }
     },
 
+    // delete electrolux
     async delete(req, res) {
         try {
-            const smarthome = await Smarthome.findOne({
+            const oven = await Oven.findOne({
                 where: {
-                    id: req.params.smarthomeId
+                    id: req.params.ovenId
                 }
             })
-            if (!smarthome) {
+            if (!oven) {
                 return res.status(403).send({
-                    error: 'The Smarthome information was incorrect'
+                    error: 'The Oven information was incorrect'
                 })
             }
-            await smarthome.destroy()
-            res.send(smarthome)
+            await oven.destroy()
+            res.send(oven)
         } catch (err) {
             res.status(500).send({
-                error: 'The Smarthome information was incorrect'
+                error: 'The Oven information was incorrect'
             })
         }
     },
@@ -66,11 +67,11 @@ module.exports = {
     // get user by id
     async show(req, res) {
         try {
-            const smarthome = await Smarthome.findByPk(req.params.tefalId)
-            res.send(smarthome)
+            const oven = await Oven.findByPk(req.params.ovenId)
+            res.send(oven)
         } catch (err) {
             res.status(500).send({
-                error: 'The Smarthome information was incorrect'
+                error: 'The Oven information was incorrect'
             })
         }
     },
